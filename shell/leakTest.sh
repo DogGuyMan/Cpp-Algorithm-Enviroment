@@ -1,1 +1,0 @@
-MallocStackLogging=1 leaks --atExit --list -- ./Problems/InputAndQueryTest/main

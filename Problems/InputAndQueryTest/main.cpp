@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#define DEBUG 1;
+#define DEBUG 1
 using namespace std;
 namespace fs = std::filesystem;
 
@@ -13,6 +13,10 @@ const char* DIRECTORY_PATH = "./InputQuerys";
 int LOOP_CNT = 0;
 
 void InitLoop() { LOOP_CNT = 0; }
+
+shared_ptr<vector<string>> RetrieveDirectoryFiles();
+void HandleQuery();
+void HandleInput(istream& ins);
 
 /*
 leaks Report Version: 3.0
@@ -36,7 +40,18 @@ shared_ptr<vector<string>> RetrieveDirectoryFiles() {
             diter++;
         }
     }
-    return move(querys);
+    return std::move(querys);
+}
+
+void HandleQuery() {
+    shared_ptr<vector<string>> files = RetrieveDirectoryFiles();
+    fstream fs;
+    for(auto& str : *files.get()) {
+        fs.open(str);
+        HandleInput(fs);
+        fs.clear();
+        fs.close();
+    }
 }
 
 void HandleInput(istream& ins) {
@@ -54,16 +69,8 @@ void HandleInput(istream& ins) {
     if(LOOP_CNT >= MAX_LOOP) abort();
 }
 
-void HandleQuery(string& file) {
-    fstream fs;
-    fs.open(file);
-    HandleInput(fs);
-}
-
 int main() {
-    shared_ptr<vector<string>> files = RetrieveDirectoryFiles();
-    for(auto& str : *files.get()) {
-        HandleQuery(str);
-    }
+    // HandleQuery();
+    // HandleInput(cin);
     return 0;
 }
