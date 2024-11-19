@@ -20,7 +20,9 @@ if [ $QueryMode -ne 0 ]; then
     echo "_________${ProbNum} Execute With Query!_________\n"
     QueryFiles=$(ls ${InputQueryDir});
     for file in ${QueryFiles}; do
-        ./Problems/${ProbNum}/main 1 "./Problems/${ProbNum}/InputQuerys/${file}"
+        echo "$file Start \n"
+        ./Problems/${ProbNum}/main "./Problems/${ProbNum}/InputQuerys/${file}"
+        echo "End \n"
     done
 else
     echo "_________${ProbNum} Execute Normal!_________\n"
