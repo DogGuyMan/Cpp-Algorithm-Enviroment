@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug With Terminal",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "program": "${fileDirname}/build/Debug/outDebug"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/escatrgot/Library/Mobile Documents/com~apple~CloudDocs/Markdown/SelfStudy/Algorithm/Cpp-Algorithm-Enviroment/Problems/BOJ_2805",
+      "program": "/Users/escatrgot/Library/Mobile Documents/com~apple~CloudDocs/Markdown/SelfStudy/Algorithm/Cpp-Algorithm-Enviroment/Problems/BOJ_2805/build/Debug/outDebug"
+    }
+  ]
+}
