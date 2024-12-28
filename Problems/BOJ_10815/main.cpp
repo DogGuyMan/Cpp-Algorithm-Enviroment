@@ -16,6 +16,22 @@ using namespace std;
 int N, M;
 vector<int> OwnDeck, InputDeck;
 
+bool BinSearch(int Val) {
+    if(OwnDeck.size() == 1) {
+        return OwnDeck[0] == Val;
+    }
+    int lo = -1, hi = OwnDeck.size();
+    while(lo + 1 < hi) {
+        int midIdx = (lo + hi) / 2;
+        if(OwnDeck[midIdx] < Val) {lo = midIdx;}
+        else if (OwnDeck[midIdx] == Val) {
+            return true;
+        }
+        else {hi = midIdx;}
+    }
+    return false;
+}
+
 void HandleInput(istream& ins) {
     while(!ins.eof()) {
         ins >> N;
@@ -37,7 +53,10 @@ void HandleInput(istream& ins) {
         }
         
         for(const auto& ic : InputDeck) {
-            if(binary_search(OwnDeck.begin(), OwnDeck.end(), ic)) {
+            // 아래 둘중 하나 쓰면 된다.
+            // if(binary_search(OwnDeck.begin(), OwnDeck.end(), ic))
+            // if(BinSearch(ic))
+            if(BinSearch(ic)) {
                 cout << 1 << ' ';
             }
             else {
