@@ -11,3 +11,4 @@ main.dSYM
 
 # Ignore OS-specific files
 .DS_Store
+**/build/*
