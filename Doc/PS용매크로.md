@@ -9,8 +9,7 @@ using namespace std;
 #define FOR1(i,n) REP1(i,1,n)
 #define TR(i,x) for(typeof(x.begin()) i=x.begin();i!=x.end();i++)
 
-#define INF 1000000000
-#define MOD 1000000007
+#define MOD 1e9+7
 
 #define pb push_back
 #define mp make_pair
@@ -18,6 +17,8 @@ using namespace std;
 #define MEM(a,b) memset(a,(b),sizeof(a))
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
+#define GCD(a, b) ((b) ? GCD((b), (a) % (b)) : (a))
+#define LCM(a, b) ((a)*(b)*GCD(a,b))
 #define F first
 #define S second
 
