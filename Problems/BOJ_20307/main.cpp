@@ -22,7 +22,7 @@ public:
     __int128 Ja = 0;
     Bunsu() : Mo(0), Ja(0) {}
     Bunsu(__int128 ja, __int128 mo) : Mo(mo), Ja(ja) {}
-    // 이부분이 c_string 하면서 문제가 있었던것 같은데/
+    // 이부분이 c_string 하면서 문제가 있었던것 같은데
     Bunsu(string bunsu)
     {
         if (bunsu.find(delimiter) == string::npos)
