@@ -21,7 +21,7 @@ if [ $QueryMode -ne 0 ]; then
     QueryFiles=$(ls ${InputQueryDir});
     for file in ${QueryFiles}; do
         echo "$file Start \n"
-        ./Problems/${ProbNum}/main "./Problems/${ProbNum}/InputQuerys/${file}"
+        ./Problems/${ProbNum}/main "./Problems/${ProbNum}/InputQuerys/${file}" ""
         echo "End \n"
     done
 else
