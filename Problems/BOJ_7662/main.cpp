@@ -40,11 +40,6 @@ void HandleInput(istream &ins)
                     break;
                 }
             }
-            // cout << " op : " << op << " val : " << val << '\n';
-            // cout << "   current   " << '\n';
-            // for(auto& e : m) {
-            //     cout << "           key : " << e.first << " value : " << e.second << '\n';
-            // }
         }
         if(m.empty() == true)
             cout << "EMPTY" << '\n';
