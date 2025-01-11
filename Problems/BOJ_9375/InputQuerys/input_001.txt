@@ -1,0 +1,12 @@
+4
+3
+hat headgear
+sunglasses eyewear
+turban headgear
+3
+mask face
+sunglasses face
+makeup face
+0
+1
+hat headgear
