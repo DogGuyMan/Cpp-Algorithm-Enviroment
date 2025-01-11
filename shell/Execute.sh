@@ -21,11 +21,13 @@ if [ $QueryMode -ne 0 ]; then
     QueryFiles=$(ls ${InputQueryDir});
     for file in ${QueryFiles}; do
         echo "$file Start \n"
+        # MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbNum}/main "./Problems/${ProbNum}/InputQuerys/${file}" ""
         ./Problems/${ProbNum}/main "./Problems/${ProbNum}/InputQuerys/${file}" ""
         echo "End \n"
     done
 else
     echo "_________${ProbNum} Execute Normal!_________\n"
+    # MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbNum}/main
     ./Problems/${ProbNum}/main
 fi
 
