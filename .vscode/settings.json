@@ -65,7 +65,9 @@
     "iterator": "cpp",
     "forward_list": "cpp",
     "charconv": "cpp",
-    "version": "cpp"
+    "version": "cpp",
+    "list": "cpp",
+    "regex": "cpp"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "clang",
