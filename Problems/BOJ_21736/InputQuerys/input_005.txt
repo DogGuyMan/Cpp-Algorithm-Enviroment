@@ -1,0 +1,4 @@
+3 3
+IXP
+XPP
+PPP
