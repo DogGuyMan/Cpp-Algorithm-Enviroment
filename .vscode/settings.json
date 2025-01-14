@@ -67,7 +67,8 @@
     "charconv": "cpp",
     "version": "cpp",
     "list": "cpp",
-    "regex": "cpp"
+    "regex": "cpp",
+    "unordered_set": "cpp"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "clang",
