@@ -41,10 +41,21 @@ int main(int argc, const char* args[]) {
 }
 ```
 
-#### 2). 문제를 읽자.
+#### 2). 인풋의 사이즈가 정해지지 않을때,
+
+```cpp
+while(!ins.eof()) {
+    ins >> N >> M;
+    if(ins.fail()) {ins.clear(); ins.ignore('\n'); continue;}
+    T.reserve(N+1); T.resize(N);
+}
+```
+
+#### 3). 문제를 읽자.
 * 입력 출력을 먼저 보고
 * 예제 입력을 보고 고민해 보자.
 * 그리고 문제를 읽자.
+
 
 ---
 
