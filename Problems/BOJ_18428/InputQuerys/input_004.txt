@@ -1,0 +1,6 @@
+5
+X S S S X
+T X X S X
+X T X S X
+X X T X S
+X X X T X

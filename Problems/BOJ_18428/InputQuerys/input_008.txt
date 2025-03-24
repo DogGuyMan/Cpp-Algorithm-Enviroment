@@ -1,0 +1,7 @@
+6
+T X X X X X
+X S S S S S
+X S S S S S
+X S S S S S
+X S S S S S
+X S S S S S

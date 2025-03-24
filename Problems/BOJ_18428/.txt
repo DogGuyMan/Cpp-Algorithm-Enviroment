@@ -1,0 +1,17 @@
+5
+X S ! X T
+T ! S X X
+X X ! X X
+X T X X X
+X X T X X
+
+4
+S S S T
+! ! ! X
+X X X X
+T T T X
+
+2
+T S X
+T S X
+X X T
