@@ -19,26 +19,32 @@ sh ./shell/Execute.sh < 백준_문제_번호 > < { option 1 이면 ${ProbNum}/In
 바로 `EOF`를 받지 못하면 틀렸습니다를 받을 수 있다는것을 확인 따라서
 `QUERY_CNT` 변수로 쿼리 루프 횟수를 넘겨 받아야 된다를 확인
 ```cpp
-int QUERY_CNT = 1;
 
 void HandleInput(istream& ins) {
-    while(!ins.eof() && QUERY_CNT-- > 0 ) {
-        ...
-    }
 }
 
+void HandleQuery(const char* FILE_PATH) {
+    fstream fs(FILE_PATH);
+    if(fs.is_open()) {
+        HandleInput(fs);
+    }
+}
 ...
 
-int main(int argc, char * args[]) {
-    if(argc <= 1) {
-        HandleInput(cin);
+int main(int argc, const char* args[]) {
+    if(argc > 1) {
+        HandleQuery(args[1]);
     }
     else {
-        const char* FILE_PATH = args[1];
-        HandleQuery(FILE_PATH);
-     }
+        HandleInput(cin);
+    }
 }
 ```
+
+#### 2). 문제를 읽자.
+* 입력 출력을 먼저 보고
+* 예제 입력을 보고 고민해 보자.
+* 그리고 문제를 읽자.
 
 ---
 
