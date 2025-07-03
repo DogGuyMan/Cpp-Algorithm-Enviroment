@@ -10,7 +10,7 @@ ProbNum="BOJ_$1"
 
 echo "_________${ProbNum} Build!_________"
 
-clang++ -fcolor-diagnostics -g "./Problems/${ProbNum}/main.cpp" -o "./Problems/${ProbNum}/main" --std=c++17
+clang++ -I/Include -fcolor-diagnostics -g "./Problems/${ProbNum}/main.cpp" -o "./Problems/${ProbNum}/main" --std=c++17 
 
 
 QueryMode="$2"
