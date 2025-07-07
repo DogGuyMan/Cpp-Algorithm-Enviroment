@@ -30,3 +30,4 @@ typedef vector<int> vi;
 #define ub upper_bound
 #define lb lower_bound
 ```
+            
