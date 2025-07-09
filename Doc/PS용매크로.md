@@ -19,11 +19,12 @@ using namespace std;
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 #define GCD(a, b) ((b) ? GCD((b), (a) % (b)) : (a))
 #define LCM(a, b) ((a)*(b)*GCD(a,b))
-#define F first
-#define S second
+#define Y first
+#define X second
 
-typedef long long LL;
-typedef pair<int,int> ii;
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef pair<long long ,long long > pll;
 typedef vector<int> vi;
 
 #define ARRAY_SIZE(A) sizeof(A)/sizeof(A[0])

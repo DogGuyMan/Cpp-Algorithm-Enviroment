@@ -4,6 +4,7 @@ main
 main.dSYM
 *.optimal.cpp
 *.optimal.c
+**/회고/*
 
 # Ignore temporary files
 *.swp
