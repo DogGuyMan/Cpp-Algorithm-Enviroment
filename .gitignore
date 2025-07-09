@@ -2,6 +2,8 @@
 
 main
 main.dSYM
+*.optimal.cpp
+*.optimal.c
 
 # Ignore temporary files
 *.swp
