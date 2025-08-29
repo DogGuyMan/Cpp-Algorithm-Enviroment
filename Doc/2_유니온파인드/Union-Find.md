@@ -30,7 +30,6 @@ DSetEl DSet[10] {0, }
 void MakeSet() {
     for(int i = 1; i < 1010; i++) {
         DSet[i] = i;
-        DSet[i] = 1;
     }
 }
 
