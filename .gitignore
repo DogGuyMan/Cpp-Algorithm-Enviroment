@@ -16,3 +16,6 @@ main.dSYM
 .DS_Store
 **/[Bb]uild/*
 **/[Hh]iddenCode/*
+
+prevvscode.settingsdoc.*
+currentvscode.settingsdoc.*
