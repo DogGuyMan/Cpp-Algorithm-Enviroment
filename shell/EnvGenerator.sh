@@ -19,6 +19,7 @@ mkdir $NewDir
 	pushd $NewDir
 	mkdir "InputQuerys"
 	touch main.cpp
+	touch note.md
 	echo "$Template" > main.cpp
 	popd
 popd

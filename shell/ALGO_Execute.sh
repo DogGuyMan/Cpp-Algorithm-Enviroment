@@ -10,8 +10,14 @@ ProbID="ALGO_$1"
 
 echo "_________${ProbID} Build!_________"
 
-clang++ -I"./Include" -fcolor-diagnostics -g "./Problems/${ProbID}/main.cpp" -o "./Problems/${ProbID}/main" --std=c++17 
-
+clang++ -I"./Include" \
+	-fcolor-diagnostics \
+	-fno-common \
+	-Wall -Wextra \
+	-Wshadow \
+	-Wduplicate-decl-specifier \
+	-Wredundant-decls \
+	-g "./Problems/${ProbID}/main.cpp" -o "./Problems/${ProbID}/main" --std=c++17
 
 QueryMode="$2"
 InputQueryDir="./Problems/${ProbID}/InputQuerys"

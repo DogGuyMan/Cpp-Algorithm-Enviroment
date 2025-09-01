@@ -24,6 +24,10 @@ cd "${curDir}"
 
 clang++ -I "${includeDir}" \
 	-fcolor-diagnostics \
+	-fno-common \
+	-Wall -Wextra \
+	-Wduplicate-decl-specifier \
+	-Wredundant-decls \
 	-g "${1}.cpp" \
 	-o "${1}" --std=c++17
 
