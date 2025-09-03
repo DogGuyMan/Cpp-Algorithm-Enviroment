@@ -121,3 +121,15 @@ for(int k = 0; k < len; k++) {
 4. 벡터에서 특정 원소 찾기
    1. 비정렬 `find(RES.begin(), RES.end(), i) == RES.end()` : 마지막 이터레이터
    2. 정렬 `binary_search(RES.begin(), RES.end(), i) == true` : 참 거짓
+
+5. DAG 검사
+```cpp
+for(int i = 0; i < ALPHA_CNT; i++) {
+    for(int j = i+1; j < ALPHA_CNT; j++) {
+   // ❌if  (G[j][i] == 1) ❌ 아니 왜!!! 이런 실수를 하는거야 백트래킹 된 문자열 내에서 char을 가지고 방향 계산을 해야지.
+        if(⭐️G[BACK_TRACK[j]][BACK_TRACK[i]]⭐️ == 1)
+        	return res = FAIL_STR;
+        }
+}
+
+```

@@ -1,121 +1,111 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm> 
 
 using namespace std;
 
-int C; // 1~50
-int N; // 1~1000
-const int BUFF_SIZE = 20;
+int C;
+int N;
+
 const int ALPHA_CNT = 'z' - 'a' + 1;
-
 const char* FAIL_STR = "INVALID HYPOTHESIS";
-vector<string> STRS;
-vector<vector<int>> G;
-vector<int> BACK_TRACK;
-vector<int> RES;
+
+int G[ALPHA_CNT][ALPHA_CNT] = {0,};
 bool IS_VISIT[ALPHA_CNT] = {0,};
+vector<int> BACK_TRACK;
 
-bool ExistDegreeEdge(int cur) {
-        for(int nxt =0; nxt < ALPHA_CNT; nxt++) {
-                if(G[cur][nxt] == 1)
-                        return true;
-        }
-        return false;
+void ResetState() {
+	for(int i = 0; i < ALPHA_CNT; i++)
+		for(int j = 0; j < ALPHA_CNT; j++)
+			G[i][j] = 0;
+	BACK_TRACK.clear();
+	for(int i = 0; i < ALPHA_CNT; i++)
+		IS_VISIT[i] = false;
 }
 
-void DFS(int start) {
-        IS_VISIT[start] = true;
-        bool flag = false;
-        for(int i = 0; i < ALPHA_CNT; i++) {
-                if(G[start][i] == 0) continue;
-                if(IS_VISIT[i] == true) continue;
-                flag = true;
-                DFS(i);
-        }
-        BACK_TRACK.push_back(start);
-        if(ExistDegreeEdge(start)) 
-                RES.push_back(start);
+void DFS(int cur) {
+	IS_VISIT[cur] = true;
+	for(int nxt = 0; nxt < ALPHA_CNT; nxt++) {
+		if(G[cur][nxt] == 0) continue;;
+		if(IS_VISIT[nxt]) continue;
+		DFS(nxt);
+	}
+	BACK_TRACK.push_back(cur);
 }
 
-// O(N * L)
-void MakeGraph(const vector<string>& strs) {
-        for(int i =0; i < strs.size()-1; i++) {
-                int j = i + 1;
-                int len = min(strs[i].size(), strs[j].size());
-                // SAME SUB STRING
-                for(int k = 0; k < len; k++) {
-                        if(strs[i][k] == strs[j][k]) continue;
-                        G[strs[i][k]-'a'][strs[j][k]-'a'] = 1;
-                        break;
-                }
-        }
+string TopoSort() {
+	string res = "";
+	// DAG 검사
+
+	for(int i = 0; i < ALPHA_CNT; i++) {
+		if(!IS_VISIT[i])
+			DFS(i);
+	}
+
+	reverse(BACK_TRACK.begin(), BACK_TRACK.end());
+	
+	// DAG 검사
+	for(int i = 0; i < ALPHA_CNT; i++) {
+		for(int j = i+1; j < ALPHA_CNT; j++) {
+			if(G[BACK_TRACK[j]][BACK_TRACK[i]] == 1)
+				return res = FAIL_STR;
+		}
+	}
+
+	for(auto& e : BACK_TRACK) {
+		res += (char)(e + 'a');
+	} 
+	return res;
 }
 
-// O(26 + E)
-void TopoSort() {        
+void HandleInput(istream &ins)
+{
+	ins >> C;
+	while (C--)
+	{
+		ins >> N;
+		ResetState();
+		vector<string> strs(N);
+		for (int i = 0; i < N; i++)
+		{
+			ins >> strs[i];
+		}
 
-        for(int i = 0; i < ALPHA_CNT; i++) {
-                if(!IS_VISIT[i])
-                        DFS(i);
-        }
-
-        reverse(BACK_TRACK.begin(), BACK_TRACK.end());
-        reverse(RES.begin(), RES.end());
-
-        for(int i = 0; i < ALPHA_CNT; i++) {
-                for(int j = i+1; j < ALPHA_CNT; j++) {
-                        if(G[BACK_TRACK[j]][BACK_TRACK[i]] == 1) {
-                                cout << FAIL_STR << '\n';
-                                return;
-                        }
-                }
-        }
-
-        for(auto& e : RES) {
-                cout << (char)(e + 'a');
-        }
-
-        for(int i = 0; i < ALPHA_CNT; i++) {
-                if(find(RES.begin(), RES.end(), i) == RES.end()) {
-                        cout << (char)(i + 'a');
-                }
-        } cout << '\n';
-
-        return;
+		for(int j = 1; j < strs.size(); j++) {
+			int i = j -1;
+			int from = 0; int to = 0;
+			string& fstr = strs[i]; 
+			string& sstr = strs[j];
+			int minLen = min(fstr.size(), sstr.size());
+			for(int l = 0; l < minLen; l++) {
+				if(fstr[l] == sstr[l]) continue;
+				from = fstr[l] - 'a'; to = sstr[l] - 'a';
+				break;
+			}
+			G[from][to] = 1;
+		}
+		cout << TopoSort() << '\n';
+	}
 }
 
-// O(N * L) + O(26 + E) 이므로 더 큰거 O(nL)이 정답
-void HandleInput(istream& ins) {
-        ins >> C;
-        while(C--) {
-                ins >> N;
-
-                BACK_TRACK.clear();
-                RES.clear();
-                G = vector<vector<int>>(ALPHA_CNT, vector<int>(ALPHA_CNT, 0));
-                STRS = vector<string>(N);
-                fill(IS_VISIT + 0, IS_VISIT + ALPHA_CNT, 0);
-
-                for(int i =0; i < N; ++i) {
-                        ins >> STRS[i];
-                }
-                MakeGraph(STRS);
-                TopoSort();
-        }
+void HandleQuery(const char *filePath)
+{
+	fstream fs(filePath);
+	if (fs.is_open())
+	{
+		HandleInput(fs);
+	}
 }
 
-void HandleQuery(const char* FILE_PATH) {
-        fstream fs(FILE_PATH);
-        if(fs.is_open()) {
-                HandleInput(fs);
-        }
-}
-
-int main(int argc, const char * argv[]) {
-    if(argc > 1) {
-        HandleQuery(argv[1]);
-    }
-    else {
-        ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
-        HandleInput(cin);
-    }
+int main(int argc, const char *argv[])
+{
+	if (argc <= 1)
+	{
+		HandleInput(cin);
+	}
+	else
+	{
+		HandleQuery(argv[1]);
+	}
 }
