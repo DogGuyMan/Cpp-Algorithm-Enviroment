@@ -48,7 +48,7 @@ dog->god
 
 #### 회고
 
-##### 1. 백트래킹시 리버스는 필수!
+##### 1. 오일러 서킷, 트레일 모두! 백트래킹시 리버스는 필수!
 ```cpp
 reverse(BACK_TRACK.begin(), BACK_TRACK.end());
 ```
@@ -68,11 +68,22 @@ for(int i = 0; i < BACK_TRACK.size()-1; i++) {
 } cout << '\n';
 ```
 
-##### 3. 전역변수를 재정의 하지 말아라!!!
+##### 3. `ADJ[from][to]` 배열이 필요한 이유
 
 ```cpp
-
+void DFS(int cur) {
+	for(int nxt = 0;nxt < ALPHA_CNT; nxt++) {
+		// cur -> nxt로 갈때, 경로의 카운트를 세야 할 수 있어야 하는데
+		// out_deg 만으로 는 할 수 없다 ADJ가 꼭 필요한 이유다.
+		// while(OUT_DEG[i] > 0) 
+		while (ADJ[cur][nxt] > 0)
+		{
+			ADJ[cur][nxt]--;
+			DFS(nxt);
+		}
+		
+	}
+	// cout << (char)(cur+'a') << '\n'; // DEBUG
+	BACK_TRACK.push_back(cur);
+}
 ```
-
-##### .
-##### .
