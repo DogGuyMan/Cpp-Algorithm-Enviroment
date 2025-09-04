@@ -1,6 +1,6 @@
 clear
 if [ $# -lt 2]; then
-	echo "\$ 문제 저장소 BOJ 또는 ALGO 작성 \$2 : 식별자 작성하기"
+	echo "\$ 문제 저장소 { BOJ | ALGO | SWEA } 작성 \$2 : 식별자 작성하기"
 	exit 1
 fi
 

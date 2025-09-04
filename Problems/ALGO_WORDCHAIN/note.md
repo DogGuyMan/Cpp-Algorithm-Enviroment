@@ -87,3 +87,26 @@ void DFS(int cur) {
 	BACK_TRACK.push_back(cur);
 }
 ```
+
+##### 4. 서큇인지 트레일인지 어쨌든 DFS를 돌리는 방법
+둘다 공통점은 시작점을 찾았으면 DFSAll 안해도 된다는것이다.
+```cpp
+void RunEuler() {
+	// If Trail
+	for(int i = 0; i < ALPHA_CNT; i++) {
+		if(IN_DEG[i] + 1 == OUT_DEG[i]) {
+			DFS(i);
+			return;
+		}
+	}
+	// If Circuit
+	for(int i = 0; i < ALPHA_CNT; i++) {
+		if(OUT_DEG[i] > 0) {
+			DFS(i);
+			return;
+		}
+	}
+
+	return;
+}
+```

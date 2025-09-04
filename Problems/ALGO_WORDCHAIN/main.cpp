@@ -57,7 +57,7 @@ void DFS(int cur) {
 	BACK_TRACK.push_back(cur);
 }
 
-void TopoSort() {
+void RunEuler() {
 	// If Trail
 	for(int i = 0; i < ALPHA_CNT; i++) {
 		if(IN_DEG[i] + 1 == OUT_DEG[i]) {
@@ -65,7 +65,7 @@ void TopoSort() {
 			return;
 		}
 	}
-	
+	// If Circuit
 	for(int i = 0; i < ALPHA_CNT; i++) {
 		if(OUT_DEG[i] > 0) {
 			DFS(i);
