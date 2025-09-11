@@ -11,8 +11,24 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
+const int MAX = 1e5*1e3;
+
+// D는 어떻게 나온걸까?
+// A는 어떻게 나온걸까?
+
+int A[101010] = {0,};
+int DP[101010] = {0,};
+
 void HandleInput(istream &ins)
 {
+	int N; ins >> N;
+	int mx = -MAX;
+	FOR(i, 1, N+1) { ins >> A[i]; }
+	FOR(i, 1, N+1) { 
+		DP[i] = max(0 ,DP[i-1]) + A[i]; 
+		mx = max(mx, DP[i]);
+	}
+	cout << mx << '\n';
 }
 
 void HandleQuery(const char *FILE_PATH)

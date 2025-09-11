@@ -11,8 +11,24 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
+const int MAX = 1e9+7;
+int N;
+vector<int> A;
+
 void HandleInput(istream &ins)
 {
+	ins >> N;
+	A.push_back(-MAX);
+	for(int i = 0; i < N; i++) {
+		int cur; ins >> cur;
+		if(A.back() < cur) A.push_back(cur);
+		else {
+			// 중복 비허용
+			auto it = lower_bound(A.begin(), A.end(), cur);
+			*it = cur; // 값 덮어 씌우기
+		}
+	}
+	cout << A.size() - 1 << '\n';
 }
 
 void HandleQuery(const char *FILE_PATH)
