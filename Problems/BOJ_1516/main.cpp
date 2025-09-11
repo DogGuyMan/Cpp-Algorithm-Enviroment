@@ -2,11 +2,10 @@
 using namespace std;
 #define FASTIO                       \
 	ios::sync_with_stdio(false); \
-	cin.tie(nullptr);
-#define FOR(i, a, b) for( int i = (a); i < (b); ++i)
+	cin.tie(nullptr);            \
+	cout.tie(nullptr);
 #define Y first
 #define X second
-#define ALL(v) (v).begin(), (v).end()
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
