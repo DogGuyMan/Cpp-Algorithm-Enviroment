@@ -11,42 +11,28 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
-const int INF = 1e9+7;
-struct E {
-	int num; int prev;
-};
-
-E DP[1010101] = {{0},};
-
-E BF(int num) {
-	int mins[4] = {INF, INF, INF, INF};
-	int path = -1;
-	if(num <= 1) return {0, path};
-	if(DP[num].num > 0) return DP[num];
-
-	if((num%3) == 0) mins[3] = 1 + BF(num/3).num;
-	if((num%2) == 0) mins[2] = 1 + BF(num/2).num;
-	mins[1] = 1 + BF(num-1).num;
-	
-	if(mins[2] > mins[3]) 	{ mins[0] = mins[3]; path = num/3;}
-	else 			{ mins[0] = mins[2]; path = num/2;}
-	if(mins[0] > mins[1]) 	{ mins[0] = mins[1]; path = num-1;}
-	
-	return DP[num] = {mins[0], path};
-}
-
+constexpr int INF = 1e9+7;
+constexpr int MAX = 1e6+1;
+int N;
+int DP[MAX] = {0,};
 void HandleInput(istream &ins)
 {
-	int N; ins >> N;
-	if(N <= 1) {cout << 0 << '\n'; cout << 1 << '\n';  return;}
-	for(int i = 0; i < N; i++) { DP[i] = {-INF, -1}; }
-	BF(N);
-	int path = N;
-	cout << DP[N].num << '\n';
-	while(path != -1) {
-		cout << path << ' ';
-		path = DP[path].prev;
-	} cout << '\n';
+	ins >> N;
+	fill(DP+1, DP+N, INF);
+	DP[1] = 0;
+	for(int i = 2; i <= N ; i++) {
+		DP[i] = DP[i-1]+1;
+		if(i%2==0) DP[i] = min(DP[i], DP[i/2] + 1);
+		if(i%3==0) DP[i] = min(DP[i], DP[i/3] + 1);
+	}
+	cout << DP[N] << '\n';
+	int idx= N;
+	while(idx >= 1) {
+		cout << idx << ' ';
+		if(DP[idx-1] + 1 == DP[idx]) idx--;
+		else if(idx%2 ==0 && DP[idx/2] + 1 == DP[idx])  idx/=2;
+		else idx/=3;
+	}
 }
 
 void HandleQuery(const char *FILE_PATH)
@@ -69,5 +55,4 @@ int main(int argc, const char *args[])
 	{
 		HandleQuery(args[1]);
 	}
-	return 0;
 }

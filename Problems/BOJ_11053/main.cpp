@@ -3,7 +3,7 @@ using namespace std;
 #define FASTIO                       \
 	ios::sync_with_stdio(false); \
 	cin.tie(nullptr);
-#define FOR(i, a, b) for (int i = (a); i < (b); ++i)
+#define FOR(i, a, b) for( int i = (a); i < (b); ++i)
 #define Y first
 #define X second
 #define ALL(v) (v).begin(), (v).end()
@@ -11,24 +11,23 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
-const int MAX = 1e9+7;
+const int INF = 1e9+7;
 int N;
 vector<int> A;
 
 void HandleInput(istream &ins)
 {
 	ins >> N;
-	A.push_back(-MAX);
-	FOR(i, 0, N) {
+	A.push_back(-INF);
+	for(int i = 1; i <= N; i++) {
 		int cur; ins >> cur;
-		if(A.back() < cur)
-			A.push_back(cur);
+		if(A.back() < cur) A.push_back(cur);
 		else {
 			auto it = lower_bound(A.begin(), A.end(), cur);
 			*it = cur;
 		}
-	}
-	cout << A.size()-1 << '\n';
+	} 
+	cout << A.size() -1<<  '\n';
 }
 
 void HandleQuery(const char *FILE_PATH)
