@@ -12,10 +12,8 @@ typedef pair<int, int> pii;
 typedef tuple<int, int, int> tiii;
 
 struct State {
-	int X;
-	int Y;
-	unordered_set<int> BACK_TRACK_Y;
-	unordered_set<int> BACK_TRACK_X;
+	int X, Y;
+	unordered_set<int> BACK_TRACK_Y, BACK_TRACK_X;
 };
 
 int N;

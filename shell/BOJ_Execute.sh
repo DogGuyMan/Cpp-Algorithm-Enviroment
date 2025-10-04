@@ -6,18 +6,15 @@ fi
 
 ProbNum="BOJ_$1"
 
-# MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbNum}/main
 
 echo "_________${ProbNum} Build!_________"
 
-clang++ -I"./Include" \
-	-fcolor-diagnostics \
-	-fno-common \
-	-Wall -Wextra \
-	-Wshadow \
-	-Wduplicate-decl-specifier \
-	-Wredundant-decls \
-	-g "./Problems/${ProbNum}/main.cpp" -o "./Problems/${ProbNum}/main" --std=c++17
+clang++  -I"./Include" \
+    -g -fno-omit-frame-pointer \
+    -fcolor-diagnostics -fno-common -fsanitize=undefined,integer -fno-sanitize-recover=all \
+	-Wall -Wextra -Werror -Warray-bounds -Wshadow -Wduplicate-decl-specifier -Wredundant-decls \
+    -Wno-error=unused-but-set-variable -Wno-unused-variable -Wno-unused-function -Wno-unused-parameter -Wno-implicit-function-declaration \
+	--std=c++17 -O1 -g "./Problems/${ProbNum}/main.cpp" -o "./Problems/${ProbNum}/main"
 
 QueryMode="$2"
 InputQueryDir="./Problems/${ProbNum}/InputQuerys"
@@ -28,7 +25,7 @@ if [ $QueryMode -ne 0 ]; then
     QueryFiles=$(ls ${InputQueryDir});
     for file in ${QueryFiles}; do
         echo "$file Start \n"
-        # MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbNum}/main "./Problems/${ProbNum}/InputQuerys/${file}" ""
+        # MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbID}/main
         ./Problems/${ProbNum}/main "./Problems/${ProbNum}/InputQuerys/${file}" ""
         echo "End \n"
     done
