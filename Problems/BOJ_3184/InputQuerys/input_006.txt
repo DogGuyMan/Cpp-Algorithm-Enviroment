@@ -1,0 +1,4 @@
+3 3
+vvv
+vvo
+ooo
