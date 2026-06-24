@@ -4,3 +4,11 @@ TabWidth: 4
 IndentWidth: 4
 ColumnLimit: 0
 NamespaceIndentation: All
+# 한 줄로 작성한 짧은 구문을 최대한 그대로 둔다
+AllowShortBlocksOnASingleLine: Always
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+AllowShortEnumsOnASingleLine: true
+AllowShortLambdasOnASingleLine: All

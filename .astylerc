@@ -1,0 +1,9 @@
+# Artistic Style (astyle) 설정 — 기존 .clang-format(Microsoft 스타일) 대응
+--style=allman
+--indent=tab=4
+--indent-namespaces
+--pad-oper
+--pad-header
+# 한 줄로 작성한 문장/블록을 강제로 줄바꿈하지 않고 그대로 보존
+--keep-one-line-statements
+--keep-one-line-blocks

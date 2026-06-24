@@ -4,13 +4,19 @@
   "C_Cpp.clang_format_style": "file",
   "C_Cpp.clang_format_path": "/opt/homebrew/bin/clang-format",
   "[cpp]": {
-    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.defaultFormatter": "jkillian.custom-local-formatters",
     "editor.formatOnSave": true
   },
   "[c]": {
-    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.defaultFormatter": "jkillian.custom-local-formatters",
     "editor.formatOnSave": true
   },
+  "customLocalFormatters.formatters": [
+    {
+      "command": "/usr/local/bin/python3 .vscode/format_cpp.py",
+      "languages": ["cpp", "c"]
+    }
+  ],
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",
