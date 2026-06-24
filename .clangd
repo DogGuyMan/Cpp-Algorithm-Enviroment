@@ -1,9 +1,0 @@
-CompileFlags:
-  CompilationDatabase: build_ninja
-  Add:
-    # ______ 기본 ______
-    - -xc++
-    - -std=c++17
-Diagnostics:
-  UnusedIncludes: Strict
-  MissingIncludes: Strict

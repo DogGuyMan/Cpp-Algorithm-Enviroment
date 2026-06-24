@@ -68,23 +68,160 @@
 // cout << AB;                          // long long 변수 1개 출력하는 예제
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-#include<iostream>
+#include <iostream>
+#include <algorithm>
 #include <vector>
+#include <unordered_map>
+#include <set>
 #define NMAX 100
-
-enum class TILE {
-	H = -1, E = 0, B = 1, W = 6
-};
-
-int MAP[NMAX + 2][NMAX + 2] = {0};
-
+#define X second
+#define Y first
 
 using namespace std;
 
+typedef pair<int, int> pii;
+
+int TEST_CASE;
+		set<pii> EMPTY_POS;
+		vector<pii> WHOLE[11];
+int T;
+int N; 
+int HIT_CNT = 0;
+int MAX_CNT = -23456789;
+
+pii MV[4] {
+	{0, 1},
+	{-1, 0},
+	{0, -1},
+	{1, 0},
+};
+
+pii BALL_CUR_POS = {0,0};
+pii BALL_MV_DIR = {0, 0};
+
+pii WarpPos(pii& curPos, int v) {
+	for(const auto& p : WHOLE[v]) {
+		if(curPos.X == p.X && curPos.Y == p.Y)	 continue;
+		return p;
+	}
+	return {-1, -1};
+}
+
+bool IsBound(pii pos) {
+	if(!(0 <= pos.Y && pos.Y <= N+1)) return false;
+	if(!(0 <= pos.X && pos.X <= N+1)) return false;
+	return true;
+}
+
+// 이동하고
+void MoveToward(pii& curPos, pii& mvDir) {
+	curPos = { 
+		curPos.Y + mvDir.Y,
+		curPos.X + mvDir.X 
+	};
+}
+
+pii GetNxtDir(const pii& curDir, int blockType) {
+	pii nxtDir = {999, 999};
+	switch(blockType) 
+	{
+		case 1 : {
+			if(curDir.Y == MV[0].Y && curDir.X == MV[0].X) nxtDir = MV[2];
+			if(curDir.Y == MV[1].Y && curDir.X == MV[1].X) nxtDir = MV[3];
+			if(curDir.Y == MV[2].Y && curDir.X == MV[2].X) nxtDir = MV[1];
+			if(curDir.Y == MV[3].Y && curDir.X == MV[3].X) nxtDir = MV[0];
+			break;
+		}
+		case 2 : {
+			if(curDir.Y == MV[0].Y && curDir.X == MV[0].X) nxtDir = MV[2];
+			if(curDir.Y == MV[1].Y && curDir.X == MV[1].X) nxtDir = MV[0]; 
+			if(curDir.Y == MV[2].Y && curDir.X == MV[2].X) nxtDir = MV[3];
+			if(curDir.Y == MV[3].Y && curDir.X == MV[3].X) nxtDir = MV[1];
+			break;
+		}
+		case 3 : {
+			if(curDir.Y == MV[0].Y && curDir.X == MV[0].X) nxtDir = MV[3];
+			if(curDir.Y == MV[1].Y && curDir.X == MV[1].X) nxtDir = MV[2];
+			if(curDir.Y == MV[2].Y && curDir.X == MV[2].X) nxtDir = MV[0];
+			if(curDir.Y == MV[3].Y && curDir.X == MV[3].X) nxtDir = MV[1];
+			break;
+		}
+		case 4 : {
+			if(curDir.Y == MV[0].Y && curDir.X == MV[0].X) nxtDir = MV[1];
+			if(curDir.Y == MV[1].Y && curDir.X == MV[1].X) nxtDir = MV[3];
+			if(curDir.Y == MV[2].Y && curDir.X == MV[2].X) nxtDir = MV[0];
+			if(curDir.Y == MV[3].Y && curDir.X == MV[3].X) nxtDir = MV[2];
+			break;
+		}
+		case 5 : {
+			
+			if(curDir.Y == MV[0].Y && curDir.X == MV[0].X) nxtDir = MV[2];
+			if(curDir.Y == MV[1].Y && curDir.X == MV[1].X) nxtDir = MV[3];
+			if(curDir.Y == MV[2].Y && curDir.X == MV[2].X) nxtDir = MV[0];
+			if(curDir.Y == MV[3].Y && curDir.X == MV[3].X) nxtDir = MV[1];
+			break;
+		}
+		default :
+			break;
+	}
+	// printf("{%d %d}\n", curDir.Y, curDir.X); // DEBUG
+	// printf("{%d %d}\n", nxtDir.Y, nxtDir.X); // DEBUG
+	return nxtDir;
+}
+
+// 충돌 체크
+bool CheckCurTile(pii& curPos, pii& mvDir, int tileType) {
+	switch(tileType) 
+	{
+		case -1 : {
+			// printf("BH\n");  // DEBUG
+			return false;
+		}
+		case 0 :  {
+			// printf("EM\n");   // DEBUG
+			return true;
+		}
+		case 1 : case 2 : case 3 : case 4 : case 5 : 
+		{
+			// printf("BL%d\n", tileType); // DEBUG
+			// printf("{%d %d} -> ", mvDir.Y, mvDir.X); // DEBUG
+			mvDir = GetNxtDir(mvDir, tileType);
+			// printf("{%d %d}\n", mvDir.Y, mvDir.X); // DEBUG
+			HIT_CNT++;
+			return true;
+		}
+		case 6 : case 7 : case 8 : case 9 : case 10 :
+		{
+			// printf("WH%d\n", tileType); // DEBUG
+			curPos = WarpPos(curPos, tileType);
+			return true;
+		}
+		default :
+			return false;
+	}
+	return false;
+}
+
+
+
+void PRINT_MAP(int map[NMAX + 2][NMAX + 2]) {
+	for(int i = 0; i < N+2; i++) { // DEBUG1
+		for(int j = 0 ; j < N+2; j++) // DEBUG1
+			printf("%3d ", map[i][j]); // DEBUG1
+		printf("\n"); // DEBUG1
+	} // DEBUG1
+}
+
+void PRINT_CUR_POS_ON_MAP() {
+	// for(int i = 0; i < N+2; i++) { // DEBUG
+		// for(int j = 0; j < N+2; j++) // DEBUG
+			// printf("%3c ",  (i == BALL_CUR_POS.Y && j == BALL_CUR_POS.X) ? 'X' : (MAP[i][j] + 48)); // DEBUG
+		// printf("\n"); // DEBUG
+	// } // DEBUG
+}
+
 int main(int argc, char** argv)
 {
-	int test_case;
-	int T;
 	/*
 	   아래의 freopen 함수는 input.txt 를 read only 형식으로 연 후,
 	   앞으로 표준 입력(키보드) 대신 input.txt 파일로부터 읽어오겠다는 의미의 코드입니다.
@@ -94,14 +231,22 @@ int main(int argc, char** argv)
 	   freopen 함수를 사용하기 위해서는 #include <cstdio>, 혹은 #include <stdio.h> 가 필요합니다.
 	   단, 채점을 위해 코드를 제출하실 때에는 반드시 freopen 함수를 지우거나 주석 처리 하셔야 합니다.
 	*/
-	freopen("input.txt", "r", stdin);
+	// freopen("input.txt", "r", stdin);
 	scanf("%d", &T);
 	/*
 	   여러 개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
 	*/
-	for(test_case = 1; test_case <= T; ++test_case)
+	for(TEST_CASE = 1; TEST_CASE <= T; ++TEST_CASE)
 	{
-		int N; scanf("%d", &N);
+		int MAP[NMAX + 2][NMAX + 2] = {0};
+		pii INIT_POS;
+		for(int i = 0; i < 11; i++)
+			WHOLE[i].clear();
+		EMPTY_POS.clear();
+
+		// PRINT_MAP(MAP);
+
+		scanf("%d", &N);
 		for(int i = 0; i < N+2; i++) {
 			MAP[0][i] = 5;
 			MAP[N+1][i] = 5;
@@ -111,12 +256,91 @@ int main(int argc, char** argv)
 			MAP[i][N+1] = 5;
 		}
 
-		for(int i = 0; i < N+2; i++) {
-			for(int j = 0 ; j < N+2; j++) {
-				printf("%d ", MAP[i][j]);
+		for(int i = 1; i < N+1; i++){
+			for(int j = 1; j < N+1; j++){
+				scanf("%d", &MAP[i][j]);
+				if(MAP[i][j] >= 6)
+					WHOLE[MAP[i][j]].push_back({i, j});
+				if(MAP[i][j] == 0)
+					EMPTY_POS.insert({i, j});
 			}
-			printf("\n");
 		}
+
+		// printf("%d SZ", EMPTY_POS.size()); // DEBUG
+
+		// { // DEBUG
+		// 	PRINT_MAP();// DEBUG
+		// 	for(int i = 6; i <= 10; i++) { // DEBUG
+		// 		for(auto& p : WHOLE[i]) { // DEBUG
+		// 			printf("{%d, %d} ", p.Y, p.X); // DEBUG
+		// 		} // DEBUG
+		// 		printf("\n"); // DEBUG
+		// 	} // DEBUG
+
+		// 	printf("E POS\n"); // DEBUG
+		// 	for(const auto& epos : EMPTY_POS) { // DEBUG
+		// 		printf("{%d %d}\n", epos.Y, epos.X); // DEBUG
+		// 	} // DEBUG
+
+		// 	INIT_POS = BALL_CUR_POS = {N/2, N/2}; // DEBUG
+		// 	for(int i = 0; i < 4; i++) {
+		// 		BALL_MV_DIR = MV[i]; // DEBUG
+		// 		while(true) { // DEBUG
+		// 			bool movable = IsBound(BALL_CUR_POS);
+		// 			if(!movable) break;
+		// 			printf("\n"); // DEBUG
+		// 			printf("BALL_CUR_POS {%d %d}, BALL_MV_DIR {%d %d}\n",  // DEBUG
+		// 				BALL_CUR_POS.Y, BALL_CUR_POS.X, // DEBUG
+		// 				BALL_MV_DIR.Y, BALL_MV_DIR.X // DEBUG
+		// 			); // DEBUG
+		// 			MoveToward(BALL_CUR_POS, BALL_MV_DIR);
+		// 			PRINT_CUR_POS_ON_MAP(); // DEBUG
+		// 			printf("\n"); // DEBUG
+		// 			const int curTileType = MAP[BALL_CUR_POS.Y][BALL_CUR_POS.X];
+		// 			printf("curTileType : %d\n", curTileType); // DEBUG
+		// 			bool blackhole = CheckCurTile(BALL_CUR_POS, BALL_MV_DIR, curTileType);
+		// 			if(!blackhole) break;
+		// 			printf("HIT_CNT %d\n", HIT_CNT);// DEBUG
+		// 			if(INIT_POS.Y == BALL_CUR_POS.Y && INIT_POS.X == BALL_CUR_POS.X) break;
+		// 		} // DEBUG
+		// 		MAX_CNT = max(MAX_CNT, HIT_CNT);
+		// 		HIT_CNT = 0;
+		// 	}
+
+		// 	printf("#%d %d\n", TEST_CASE, MAX_CNT);
+		// } // DEBUG
+		for(const auto& epos : EMPTY_POS)
+		{ 
+			for(int mvIdx = 0; mvIdx < 4; mvIdx++) {
+				INIT_POS = BALL_CUR_POS = epos;
+				BALL_MV_DIR = MV[mvIdx];
+				while(true) {
+					bool movable = IsBound(BALL_CUR_POS);
+					if(!movable) break;
+
+					// printf("BALL_CUR_POS {%d %d}, BALL_MV_DIR {%d %d}\n",  // DEBUG
+						// BALL_CUR_POS.Y, BALL_CUR_POS.X, // DEBUG
+						// BALL_MV_DIR.Y, BALL_MV_DIR.X // DEBUG
+					// ); // DEBUG
+					MoveToward(BALL_CUR_POS, BALL_MV_DIR);
+					// PRINT_CUR_POS_ON_MAP(); // DEBUG
+					// printf("\n"); // DEBUG
+					const int curTileType = MAP[BALL_CUR_POS.Y][BALL_CUR_POS.X];
+					// printf("curTileType : %d\n", curTileType); // DEBUG
+					bool blackhole = CheckCurTile(BALL_CUR_POS, BALL_MV_DIR, curTileType);
+					if(!blackhole) break;
+					// printf("HIT_CNT %d\n", HIT_CNT);// DEBUG
+					if(INIT_POS.Y == BALL_CUR_POS.Y && INIT_POS.X == BALL_CUR_POS.X) break;
+					if(INIT_POS.Y == BALL_CUR_POS.Y && INIT_POS.X == BALL_CUR_POS.X) break;
+				}
+				MAX_CNT = max(MAX_CNT, HIT_CNT);
+				HIT_CNT = 0;
+			}
+
+		} 
+		printf("#%d %d\n", TEST_CASE, MAX_CNT);
+		MAX_CNT = -123456789;
+
 	}
 	return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }
