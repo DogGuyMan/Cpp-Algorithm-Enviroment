@@ -1,5 +1,6 @@
 # Ignore build directories
 
+*.out
 main
 main.dSYM
 *.optimal.cpp
