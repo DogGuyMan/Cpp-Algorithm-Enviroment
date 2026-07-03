@@ -1,11 +1,13 @@
 #include <iostream>
 #include <algorithm>
+#include <cstdio>
 
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
-	// freopen("input.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	for (int t = 1; t <= 10; t++)
 	{
 		int thresh;

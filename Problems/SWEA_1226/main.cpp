@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cstring>
+#include <cstdio>
 #define Y first
 #define X second
 using namespace std;
@@ -42,9 +43,10 @@ void DFS(const pii& cur, const pii& e_pos)
 	}
 }
 
-int main()
+int main(int argc, char** argv)
 {
-	freopen("input.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	for (int t = 1; t <= 10; ++t )
 	{
 		FLAG = false;

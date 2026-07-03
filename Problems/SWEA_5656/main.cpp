@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <deque>
 #include <queue>
+#include <cstdio>
 #define Y first
 #define X second
 #define H_MAX 15
@@ -124,10 +125,12 @@ void BFS(int map[H_MAX][W_MAX], const vector<int>& shoot_orders)
 	// printf("%3d VS %3d\n", RES, cnt);
 }
 
-int main()
+int main(int argc, char** argv)
 {
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
+
 	int TC;
-	// freopen("sample.txt", "r", stdin);
 	scanf("%d", &TC);
 	for (int i = 1; i <= TC; i++)
 	{

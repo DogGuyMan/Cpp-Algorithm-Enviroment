@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include <cstdio>
 using namespace std;
 typedef long long ll;
 
@@ -54,9 +55,10 @@ void Collapse(deque<ll>& values, deque<char>& ops)
 	values.push_back(Apply(left, right, op));
 }
 
-int main()
+int main(int argc, char** argv)
 {
-	freopen("input.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	for (int t = 1; t <= 10; ++t)
 	{
 		int N; scanf("%d", &N);

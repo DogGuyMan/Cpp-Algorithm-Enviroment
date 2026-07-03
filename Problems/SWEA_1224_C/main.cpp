@@ -1,6 +1,7 @@
 #include <iostream>
 #include <deque>
 #include <string>
+#include <cstdio>
 
 using namespace std;
 
@@ -26,9 +27,10 @@ void Squash(deque<int>& val_st, deque<char>& op_st)
 	val_st.push_back(Calc(l, r, op));
 }
 
-int main()
+int main(int argc, char** argv)
 {
-	freopen("input.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	for (int t = 1; t <= 10; ++t)
 	{
 		int exprLen = 0; scanf("%d", &exprLen);

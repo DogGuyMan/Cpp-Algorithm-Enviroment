@@ -1,6 +1,7 @@
 // 숫자 2개
 
 #include <iostream>
+#include <cstdio>
 
 int Pow(int lhs, int rhs)
 {
@@ -15,9 +16,10 @@ int Pow(int lhs, int rhs)
 	else
 		return lhs * Pow(lhs, (rhs >> 1)) * Pow(lhs, (rhs >> 1));
 }
-int main()
+int main(int argc, char** argv)
 {
-	//freopen("input.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	for (int t = 1; t <= 10; ++t)
 	{
 		int ct; scanf("%d", &ct);

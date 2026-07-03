@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstring>
+#include <cstdio>
 
 using namespace std;
 
@@ -45,8 +46,10 @@ void DFS(int cy, int cx, int cnt, int brk)
 	IS_VISIT[cy][cx] = false;
 }
 
-int main()
+int main(int argc, char** argv)
 {
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 
 	scanf("%d", &TC);
 

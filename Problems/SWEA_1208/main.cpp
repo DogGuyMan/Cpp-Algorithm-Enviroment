@@ -1,15 +1,17 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <cstdio>
 #define IDX first
 #define CNT second
 using namespace std;
 
 typedef pair<int, int> pii;
 
-int main()
+int main(int argc, char** argv)
 {
-	// freopen("input.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	for (int t = 1; t <= 10; t++)
 	{
 		vector<pii> orders;

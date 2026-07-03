@@ -15,13 +15,16 @@ CW
 #include <vector>
 #include <string>
 #include <set>
+#include <cstdio>
 
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
+
 	int TC;
-	freopen("input.txt", "r", stdin);
 	scanf("%d", &TC);
 	// K번째로 큰 수를 10진수로 만든 수가 비밀번호.
 	// 퍼뮤테이션 아닌가?

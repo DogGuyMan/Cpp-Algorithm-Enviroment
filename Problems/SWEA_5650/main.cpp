@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cstdio>
 #define Y first
 #define X second
 using namespace std;
@@ -32,11 +33,13 @@ const vector<int> REFLECT_LUT[6]
 	{-1, -1, -1, -1},  // 5 (전부 반사)
 };
 
-int main()
+int main(int argc, char** argv)
 {
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
+
 	int TC = 0;
 
-	freopen("input.txt", "r", stdin);
 	scanf("%d", &TC);
 
 	for (int tc = 1; tc <= TC; ++tc)

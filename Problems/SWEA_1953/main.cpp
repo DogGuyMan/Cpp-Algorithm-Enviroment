@@ -14,6 +14,7 @@ TC 주어짐.
 #include <iostream>
 #include <vector>
 #include <set>
+#include <cstdio>
 #define Y first
 #define X second
 using namespace std;
@@ -94,9 +95,10 @@ void PRINT_MAP(const mati& map)
 	printf("----------\n");
 }
 
-int main()
+int main(int argc, char** argv)
 {
-	freopen("sample.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	scanf("%d", &TC);
 	for (int t = 1; t <= TC; t++)
 	{

@@ -1,10 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <cstdio>
 
 using namespace std;
-int main()
+int main(int argc, char** argv)
 {
-	// freopen("input.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 
 	int N;
 	int TC = 1;

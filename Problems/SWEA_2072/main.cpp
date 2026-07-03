@@ -1,5 +1,6 @@
 #include <iostream>
 // #include <fstream>
+#include <cstdio>
 
 using namespace std;
 #define FASTIO ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
@@ -33,7 +34,9 @@ void HandleInput(istream& ins) {
 //     }
 // }
 
-int main(int argc, const char* args[]) {
+int main(int argc, char** argv) {
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 //     if(argc <= 1) {
 //         FASTIO;
         HandleInput(cin);

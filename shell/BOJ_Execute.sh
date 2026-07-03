@@ -1,5 +1,5 @@
 clear
-if [ $# -l 2 ]; then
+if [ $# -lt 2 ]; then
     echo "\$1 : 백준 문제 번호 작성하기, \$2 : 쿼리모드 (0 : 비 활성화)"
     exit 1
 fi

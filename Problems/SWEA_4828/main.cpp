@@ -1,7 +1,11 @@
 #include <iostream>
+#include <cstdio>
 
-int main()
+int main(int argc, char** argv)
 {
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
+
 	int TC;
 	scanf("%d", &TC);
 	for (int t = 1; t <= TC; t++)

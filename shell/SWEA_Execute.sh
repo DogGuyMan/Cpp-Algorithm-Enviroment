@@ -1,5 +1,5 @@
 clear
-if [ $# -l 2 ]; then
+if [ $# -lt 2 ]; then
     echo "\$1 : 삼성 문제 ID 작성하기, \$2 : 쿼리모드 (0 : 비 활성화)"
     exit 1
 fi
@@ -13,7 +13,7 @@ clang++  -I"./Include" \
     -fcolor-diagnostics -fno-common -fsanitize=undefined,integer -fno-sanitize-recover=all \
 	-Wall -Wextra -Werror -Warray-bounds -Wshadow -Wduplicate-decl-specifier -Wredundant-decls \
     -Wno-error=unused-but-set-variable -Wno-unused-variable -Wno-unused-function -Wno-unused-parameter -Wno-implicit-function-declaration \
-	--std=c++17 -O1 -g "./Problems/${ProbNum}/main.cpp" -o "./Problems/${ProbNum}/main"
+	--std=c++17 -O1 -g "./Problems/${ProbID}/main.cpp" -o "./Problems/${ProbID}/main"
 
 QueryMode="$2"
 InputQueryDir="./Problems/${ProbID}/InputQuerys"

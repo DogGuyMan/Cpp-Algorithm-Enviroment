@@ -2,6 +2,7 @@
 #include <deque>
 #include <vector>
 #include <cstring>
+#include <cstdio>
 #define Y first
 #define X second
 using namespace std;
@@ -14,9 +15,10 @@ int MAP[100][100];
 int IS_VISIT[100][100];
 bool FLAG = false;
 
-int main()
+int main(int argc, char** argv)
 {
-	freopen("input.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	for (int t = 1; t <= 10; ++t )
 	{
 		FLAG = false;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cstdio>
 #include <cstring>
 #define S_VAL 0
 #define E_VAL 99
@@ -9,9 +10,10 @@ using namespace std;
 int ISVISIT[101];
 int ct, N;
 
-int main()
+int main(int argc, char** argv)
 {
-	// freopen("input.txt", "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	for (int t = 1; t <= 10; ++t)
 	{
 		vector<int> MAP[101];

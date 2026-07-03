@@ -39,12 +39,14 @@ int Dist(Pos s, Pos e)
 	return abs(s.y - e.y) + abs(s.x - e.x);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
+
 	int test_case;
 	int T;
 
-	// freopen("input.txt", "r", stdin);
 	scanf("%d", &T);
 
 	for (test_case = 1; test_case <= T; ++test_case)

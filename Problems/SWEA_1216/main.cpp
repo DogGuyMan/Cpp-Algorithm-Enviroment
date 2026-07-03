@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <unordered_set>
+#include <cstdio>
 
 using namespace std;
 
@@ -34,11 +35,12 @@ bool IsPelin(const vector<char>& str)
 	return true;
 }
 
-int main()
+int main(int argc, char** argv)
 {
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 	const int MXN = 100;
 	const int MXTC = 10;
-	// freopen("input.txt", "r", stdin);
 	// const int MXN = 8;
 	// const int MXTC = 1;
 	char MAP[MXN + 1][MXN + 1] = {0};
