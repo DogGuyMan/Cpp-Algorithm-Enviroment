@@ -18,7 +18,7 @@ clang++  -I"./Include" \
     -g -fno-omit-frame-pointer \
     -fcolor-diagnostics -fno-common -fsanitize=undefined,integer -fno-sanitize-recover=all \
 	-Wall -Wextra -Werror -Warray-bounds -Wshadow -Wduplicate-decl-specifier -Wredundant-decls \
-    -Wno-error=unused-but-set-variable -Wno-unused-variable -Wno-unused-function -Wno-unused-parameter -Wno-implicit-function-declaration \
+    -Wno-error=unused-but-set-variable -Wno-unused-variable -Wno-unused-function -Wno-unused-parameter -Wno-implicit-function-declaration -Wno-error=sign-compare \
 	--std=c++17 -O1 -g "${ProbDir}/main.cpp" -o "${ProbDir}/main"
 
 if [ $? -ne 0 ]; then
@@ -38,7 +38,7 @@ if [ $QueryMode -ne 0 ]; then
     QueryFiles=$(ls ${InputQueryDir});
     for file in ${QueryFiles}; do
         echo "$file Start \n"
-        echo "===== ${file} =====" >> "${LogFile}"
+        echo "===== ${file} ====="
         # MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbID}/main
         ./Problems/${ProbID}/main "./Problems/${ProbID}/InputQuerys/${file}" "" >> "${LogFile}"
         echo "End \n"
