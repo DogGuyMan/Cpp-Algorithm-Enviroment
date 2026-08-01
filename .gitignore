@@ -14,6 +14,9 @@ main.dSYM
 *.tmp
 *.log
 
+# Ignore clangd background index
+.cache/
+
 # Ignore OS-specific files
 .DS_Store
 **/[Bb]uild/*

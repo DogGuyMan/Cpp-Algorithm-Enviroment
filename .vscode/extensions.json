@@ -1,8 +1,11 @@
 {
   "recommendations": [
-    "ms-vscode.cpptools"
+    "llvm-vs-code-extensions.vscode-clangd",
+    "vadimcn.vscode-lldb",
+    "jkillian.custom-local-formatters"
   ],
   "unwantedRecommendations": [
-    "llvm-vs-code-extensions.vscode-clangd"
+    "ms-vscode.cpptools",
+    "ms-vscode.cpptools-extension-pack"
   ]
 }
