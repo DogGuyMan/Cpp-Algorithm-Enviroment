@@ -1,57 +1,49 @@
 #include <iostream>
-#include <cstdio>
+#include <queue>
+using namespace std;
 
-int main(int argc, char** argv)
+inline bool IsBound(int curY, int curX)
+{
+	return 0 <= curY && 0 <= curX && curY < 100 && curX < 100;
+}
+
+int main(int argc, const char* argv[])
 {
 	if (argc > 1)
 		freopen(argv[1], "r", stdin);
-	for (int t = 1; t <= 10; t++)
-		//for (int t = 1; t <= 1; t++)
+
+	for (int tc = 1; tc <= 10; ++tc)
 	{
-		int thresh;
-		scanf("%d", &thresh);
-		int arr[100][100] = {0};
-		int sr = 0;
-		for (int i = 0 ; i < 100; i++)
+		int arr[101][101];
+		bool visit[101][101] = {{0}};
+		int thrash; scanf("%d", &thrash);
+		int StartX;
+		for (int i = 0; i < 100; ++i)
 		{
-			for (int j = 0 ; j < 100; j++)
+			for (int j = 0; j < 100; ++j)
 			{
-				scanf("%d", &arr[i][j]);
-				if (i == 99 && arr[i][j] == 2) sr = j;
+				int tmp;
+				scanf("%d", &tmp);
+				arr[i][j] = tmp;
+				if (tmp == 2) StartX = j;
 			}
 		}
-		int dir = 0;
-		int c = 99;
-		int r = sr;
-		while (c >= 0 && (0 <= r && r < 100))
+
+		queue<pair<int, int>> q;
+		q.push({99, StartX});
+		int resX = -1;
+		while (!q.empty())
 		{
-			// printf("dir : %d {%d %d}\n", dir, c, r);
-			if (dir != 0)
-			{
-				r += dir;
-				if (arr[c - 1][r] == 1)
-					dir = 0;
-			}
-			else if (dir == 0)
-			{
-				--c;
-				if (r < 99 && arr[c][r + 1] == 1)
-					dir = 1;
-				else if (r >= 1 && arr[c][r - 1] == 1)
-					dir = -1;
-			}
-			arr[c][r] = 8;
+			auto cur = q.front(); q.pop();
+			int& curX = cur.second;
+			resX = curX;
+			int& curY = cur.first;
+			visit[curY][curX] = true;
+			if 	(IsBound(curY, curX - 1) && !visit[curY][curX - 1] && arr[curY][curX - 1] == 1) { q.push({curY, curX - 1});}
+			else if (IsBound(curY, curX + 1) && !visit[curY][curX + 1] && arr[curY][curX + 1] == 1) { q.push({curY, curX + 1});}
+			else if (IsBound(curY - 1, curX) && !visit[curY - 1][curX] && arr[curY - 1][curX] == 1) { q.push({curY - 1, curX});}
 		}
-		// for (int i = 0 ; i < 100; i++)
-		// {
-		// 	for (int j = 0 ; j < 100; j++)
-		// 	{
-		// 		printf("%3d", arr[i][j]);
-		// 	}
-		// 	printf("\n");
-		// }
-		for (int i = 0; i < 100; i++)
-			if (arr[0][i] == 8) r = i;
-		printf("#%d %d\n", t, r);
+		printf("#%d %d\n", tc, resX);
 	}
+	return 0;
 }
