@@ -12,6 +12,8 @@ echo "_________${ProbNum} Build!_________"
 clang++  -I"./Include" \
     -g -fno-omit-frame-pointer \
     -fcolor-diagnostics -fno-common -fsanitize=undefined,integer -fno-sanitize-recover=all \
+    -fno-sanitize=unsigned-integer-overflow,unsigned-shift-base \
+    -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG \
 	-Wall -Wextra -Werror -Warray-bounds -Wshadow -Wduplicate-decl-specifier -Wredundant-decls \
     -Wno-error=unused-but-set-variable -Wno-unused-variable -Wno-unused-function -Wno-unused-parameter -Wno-implicit-function-declaration \
 	--std=c++17 -O1 -g "./Problems/${ProbNum}/main.cpp" -o "./Problems/${ProbNum}/main"

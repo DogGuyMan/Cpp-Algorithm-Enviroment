@@ -17,6 +17,8 @@ echo "_________${ProbID} Build!_________"
 clang++  -I"./Include" \
     -g -fno-omit-frame-pointer \
     -fcolor-diagnostics -fno-common -fsanitize=undefined,integer -fno-sanitize-recover=all \
+    -fno-sanitize=unsigned-integer-overflow,unsigned-shift-base \
+    -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG \
 	-Wall -Wextra -Werror -Warray-bounds -Wshadow -Wduplicate-decl-specifier -Wredundant-decls \
     -Wno-error=unused-but-set-variable -Wno-unused-variable -Wno-unused-function -Wno-unused-parameter -Wno-implicit-function-declaration -Wno-error=sign-compare \
 	--std=c++17 -O1 -g "${ProbDir}/main.cpp" -o "${ProbDir}/main"
@@ -30,6 +32,12 @@ QueryMode="$2"
 InputQueryDir="${ProbDir}/InputQuerys"
 LogFile="${ProbDir}/log.txt"
 QueryFiles=""
+TimeoutSec=1   # 무한루프 방지: 이 시간(초) 넘으면 강제 종료
+
+if ! command -v timeout >/dev/null 2>&1; then
+    echo "timeout 명령을 찾을 수 없습니다. 'brew install coreutils'로 설치하세요."
+    exit 1
+fi
 
 : > "${LogFile}"   # 로그 초기화
 
@@ -39,14 +47,20 @@ if [ $QueryMode -ne 0 ]; then
     for file in ${QueryFiles}; do
         echo "$file Start \n"
         echo "===== ${file} ====="
-        # MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbID}/main
-        ./Problems/${ProbID}/main "./Problems/${ProbID}/InputQuerys/${file}" "" >> "${LogFile}"
+        # MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbID}/main "./Problems/${ProbID}/InputQuerys/${file}" "" >> "${LogFile}"
+        timeout -k 1 "${TimeoutSec}" ./Problems/${ProbID}/main "./Problems/${ProbID}/InputQuerys/${file}" "" >> "${LogFile}"
+        if [ $? -eq 124 ]; then
+            echo "⚠️  ${file}: ${TimeoutSec}초 초과로 강제 종료됨 (무한루프 의심)"
+        fi
         echo "End \n"
     done
 else
     echo "_________${ProbID} Execute Normal!_________\n"
-    # MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbID}/main
-    ./Problems/${ProbID}/main > "${LogFile}"
+    # MallocStackLogging=1 leaks --atExit --list -- ./Problems/${ProbID}/main > "${LogFile}"
+    timeout -k 1 "${TimeoutSec}" ./Problems/${ProbID}/main > "${LogFile}"
+    if [ $? -eq 124 ]; then
+        echo "⚠️  ${ProbID}: ${TimeoutSec}초 초과로 강제 종료됨 (무한루프 의심)"
+    fi
 fi
 
 echo "_________${ProbID} Log -> ${LogFile}_________"

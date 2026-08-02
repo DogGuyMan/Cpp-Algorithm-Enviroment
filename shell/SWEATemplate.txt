@@ -1,0 +1,15 @@
+#include <cstdio>
+
+int main(int argc, const char* argv[])
+{
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
+	
+	int T;
+	scanf("%d", &T);
+	for (int tc = 1; tc <= T; ++tc)
+	{
+		
+	}
+	return 0;
+}
