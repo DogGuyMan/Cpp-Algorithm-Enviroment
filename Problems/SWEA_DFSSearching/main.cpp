@@ -1,42 +1,43 @@
 #include <cstdio>
 #include <vector>
+
 using namespace std;
 
 int main(int argc, const char* argv[])
 {
-	if (argc > 1) freopen(argv[1], "r", stdin);
+	if (argc > 1)
+		freopen(argv[1], "r", stdin);
 
-	int TC; scanf("%d", &TC);
-	int M, N, S, E;
-
-	for (int tc = 1; tc <= TC; ++tc)
+	int T;
+	scanf("%d", &T);
+	for (int tc = 1; tc <= T; ++tc)
 	{
-		scanf("%d %d %d %d", &M, &N, &S, &E);
-		vector<vector<int>> G(M + 1, vector<int>());
-		vector<int> IsVisit(M + 1, 0);
-		int ans = 1e9;
-		for (int e = 0; e < N; ++e)
+		int V, E, S, D; scanf("%d %d %d %d", &V, &E, &S, &D);
+		int mnPath = 1e9;
+		vector<int> G[101];
+		bool Visit[101] = {false,};
+		for (int i = 1; i <= E; ++i)
 		{
 			int f, t; scanf("%d %d", &f, &t);
 			G[f].push_back(t);
 		}
-
 		auto DFS = [&](auto&& Self, int cur, int depth) -> void
 		{
-			if (cur == E)
+			if (cur == D)
 			{
-				ans = min(depth, ans);
+				mnPath = min(mnPath, depth);
 				return;
 			}
-			IsVisit[cur] = 1;
-			for (auto nxt : G[cur])
+			Visit[cur] = true;
+			for (const auto& nxt : G[cur])
 			{
-				if (IsVisit[nxt]) continue;
+				if (Visit[nxt]) continue;
 				Self(Self, nxt, depth + 1);
 			}
-			IsVisit[cur] = 0;
+			Visit[cur] = false;
 		};
 		DFS(DFS, S, 0);
-		printf("%d %d\n", tc, ans == 1e9 ? -1 : ans);
+		printf("#%d %d\n", tc, mnPath == 1e9 ? -1 : mnPath);
 	}
+	return 0;
 }
